@@ -8,7 +8,7 @@ import java.util.*;
 @Repository
 public class EmployeeDAO {
 
-    private static final Map<String, Employee> empMap = new HashMap<String, Employee>();
+    private static final Map<String, Employee> empMap = new HashMap<>();
 
     static {
         initEmps();
@@ -44,7 +44,7 @@ public class EmployeeDAO {
 
     public List<Employee> getAllEmployees() {
         Collection<Employee> c = empMap.values();
-        List<Employee> list = new ArrayList<Employee>();
+        List<Employee> list = new ArrayList<>();
         list.addAll(c);
         return list;
     }

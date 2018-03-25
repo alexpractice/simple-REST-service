@@ -20,13 +20,23 @@ public class MainRESTController {
     @RequestMapping("/")
     @ResponseBody
     public String welcome() {
-        return "Welcome to my RestTemplate.";
+        return new StringBuilder().
+                append("Welcome to my simple REST service").
+                append("<br>").
+                append("Employee is entity like {empNo=\"E05\", empName=\"Smith\", position=\"Clerk\"}").
+                append("<br>").
+                append("GET /employees | for getting all employees list").
+                append("<br>").
+                append("GET /employee/{empNo} | for getting employee by his number").
+                append("<br>").
+                append("POST /employee <Employee> | for adding employee").
+                append("<br>").
+                append("PUT /employee <Employee> | for updating employee's info").
+                append("<br>").
+                append("DELETE /employees/{empNo} | for deleting employee by his number").toString();
+
     }
 
-    // URL:
-    // http://localhost:8080/SpringMVCRESTful/employees
-    // http://localhost:8080/SpringMVCRESTful/employees.xml
-    // http://localhost:8080/SpringMVCRESTful/employees.json
     @RequestMapping(value = "/employees", //
             method = RequestMethod.GET, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -36,10 +46,6 @@ public class MainRESTController {
         return list;
     }
 
-    // URL:
-    // http://localhost:8080/SpringMVCRESTful/employee/{empNo}
-    // http://localhost:8080/SpringMVCRESTful/employee/{empNo}.xml
-    // http://localhost:8080/SpringMVCRESTful/employee/{empNo}.json
     @RequestMapping(value = "/employee/{empNo}", //
             method = RequestMethod.GET, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -48,15 +54,6 @@ public class MainRESTController {
         return employeeDAO.getEmployee(empNo);
     }
 
-    @RequestMapping(value = "/employee")
-    public Employee greeting(@RequestParam(value="num", required=false, defaultValue="") String empNo) {
-        return employeeDAO.getEmployee(empNo);
-    }
-
-    // URL:
-    // http://localhost:8080/SpringMVCRESTful/employee
-    // http://localhost:8080/SpringMVCRESTful/employee.xml
-    // http://localhost:8080/SpringMVCRESTful/employee.json
     @RequestMapping(value = "/employee", //
             method = RequestMethod.POST, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -65,10 +62,6 @@ public class MainRESTController {
         return employeeDAO.addEmployee(emp);
     }
 
-    // URL:
-    // http://localhost:8080/SpringMVCRESTful/employee
-    // http://localhost:8080/SpringMVCRESTful/employee.xml
-    // http://localhost:8080/SpringMVCRESTful/employee.json
     @RequestMapping(value = "/employee", //
             method = RequestMethod.PUT, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -77,9 +70,6 @@ public class MainRESTController {
         return employeeDAO.updateEmployee(emp);
     }
 
-
-    // URL:
-    // http://localhost:8080/SpringMVCRESTful/employee/{empNo}
     @RequestMapping(value = "/employees/{empNo}", //
             method = RequestMethod.DELETE, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
